@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type= "text/css" href="{% static 'css/styles.css' %}"> 
+    <title>Todo List Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            
+            <a href="#" class="navbar-logo">Todoist</a>
+            <div class="navbar-search">
+                <form method='GET' action={% url 'searchTasks' %}>
+                <input type="text" placeholder="Search tasks by title..." class="search-input" name='search' required>
+                <button class="search-button">🔍</button>
+                </form>
+            </div>
+            <ul class="navbar-menu">
+                <li class="dropdown">
+                    <a href="{% url 'showTasks' %}" class="navbar-link dropdown-toggle">My Tasks</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'filterTasks' 'Personal' %}" class="dropdown-item">Personal</a></li>
+                        <li><a href="{% url 'filterTasks' 'Work' %}" class="dropdown-item">Work</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="navbar-link dropdown-toggle">{{request.user.first_name}}</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact" class="navbar-link"></a></li>
+            </ul>
+            
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+    
+</body>
+<script>
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('.navbar-menu');
+
+    hamburger.addEventListener('click', () => {
+        menu.classList.toggle('active'); // Toggles the active class to show/hide the menu
+    });
+</script>
+
+</html>

@@ -1,0 +1,92 @@
+{% extends "nav.html" %}
+{% block content %}
+<!-- Edit Task Modal -->
+<div id="edit-form-container">
+    <h2 class="edit-form-title">Edit Task</h2>
+    <form id="editTaskForm" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="editTaskId" name="taskId" value="{{ task.id }}">
+        
+        <label for="editTaskTitle">Task Title:</label><br>
+        <input type="text" id="editTaskTitle" name="taskTitle" value="{{ task.title }}" required><br><br>
+
+        <label for="editTaskDescription">Task Description:</label><br>
+        <input type="text" id="editTaskDescription" name="taskDescription" value="{{ task.description }}"><br><br>
+
+        <label for="editTaskTime">Task Time:</label><br>
+        <input type="time" id="editTaskTime" name="taskTime" value="{{ task.due_time|date:"H:i" }}" required><br><br>
+
+        <label for="editTaskDate">Task Date:</label><br>
+        <input type="date" id="editTaskDate" name="taskDate" value="{{ task.due_date|date:"Y-m-d" }}" required><br><br>
+
+        <label for="editPriority">Priority:</label><br>
+        <select id="editPriority" name="priority">
+            <option value='Low' {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
+            <option value='Medium' {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value='High' {% if task.priority == 'High' %}selected{% endif %}>High</option>
+        </select><br><br>
+
+        <label for="editCategory">Category:</label><br>
+        <select id="editCategory" name="category">
+            <option value="Personal" {% if task.category == 'Personal' %}selected{% endif %}>Personal</option>
+            <option value="Work" {% if task.category == 'Work' %}selected{% endif %}>Work</option>
+        </select><br><br> 
+        <button type="submit" class="submit-button">Save Changes</button>
+    </form>
+</div>
+
+<style>
+/* Style for the modal container */
+#edit-form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 400px;
+    margin: auto;
+    margin-top: 5%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for the modal header */
+.edit-form-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Style for the submit button */
+.submit-button {
+    background-color: #61dafb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.submit-button:hover {
+    background-color: #21a1f1;
+}
+
+/* Style for hover effects on inputs */
+input:focus, select:focus {
+    border-color: #61dafb;
+    outline: none;
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-width: 600px) {
+    #edit-form-container {
+        width: 90%;
+        margin-top: 20%;
+    }
+}
+</style>
+
+{% endblock %}

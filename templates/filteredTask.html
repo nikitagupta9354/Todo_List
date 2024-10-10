@@ -1,0 +1,26 @@
+{% extends 'nav.html' %}
+<body>
+    {% block content %}
+    
+   <div class="results-container">
+        <h2>{{Category}}</h2>
+        {% if tasks %}
+            <ul class="task-list">
+                {% for task in tasks %}
+                    <li>
+                        <span class="task-title">{{ task.title }}</span>
+                        <div class="task-details">
+                            <span class="task-date">{{ task.due_date }}</span>
+                            <span class="task-date">{{ task.priority }}</span>
+                            <span class="task-date">{{ task.category }}</span
+                            </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-results">No tasks found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+</body>
+
